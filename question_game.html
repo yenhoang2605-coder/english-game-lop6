@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Question Game</title>
+<style>
+    body {
+        font-family: Arial;
+        text-align: center;
+        background: linear-gradient(120deg, #a18cd1, #fbc2eb);
+    }
+
+    .card {
+        background: white;
+        width: 75%;
+        margin: 30px auto;
+        padding: 20px;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    input {
+        width: 80%;
+        padding: 10px;
+        margin: 5px;
+        font-size: 16px;
+        border-radius: 10px;
+        border: 2px solid #ccc;
+    }
+
+    button {
+        margin-top: 10px;
+        padding: 12px 25px;
+        font-size: 18px;
+        border-radius: 10px;
+        border: none;
+        background: #7e57c2;
+        color: white;
+        cursor: pointer;
+    }
+
+    #result, #score {
+        font-size: 20px;
+        margin-top: 10px;
+    }
+</style>
+</head>
+
+<body>
+
+<h1>🎯 Make Questions Game</h1>
+
+<div class="card">
+    <h2 id="prompt">Loading...</h2>
+
+    <p>✏️ Write the QUESTION:</p>
+    <input type="text" id="qInput" placeholder="Write question">
+
+    <p>💬 Short ANSWER:</p>
+    <input type="text" id="aInput" placeholder="Yes, I do / No, I don't">
+
+    <br>
+    <button onclick="check()">Submit</button>
+
+    <p id="result"></p>
+    <p id="score">Score: 0</p>
+</div>
+
+<script>
+const data = [
+{
+p:"you / have / an art lesson on Monday (no)",
+q:"do you have an art lesson on monday",
+a:"no i don't"
+},
+{
+p:"they / ride / their bikes to school (yes)",
+q:"do they ride their bikes to school",
+a:"yes they do"
+},
+{
+p:"Jane / play / tennis at school (no)",
+q:"does jane play tennis at school",
+a:"no she doesn't"
+},
+{
+p:"your parents / at home now (yes)",
+q:"are your parents at home now",
+a:"yes they are"
+},
+{
+p:"he / have / breakfast at 6 o’clock every day (yes)",
+q:"does he have breakfast at 6 o'clock every day",
+a:"yes he does"
+},
+{
+p:"you / a good student (no)",
+q:"are you a good student",
+a:"no i'm not"
+},
+{
+p:"I / look / well (no)",
+q:"do i look well",
+a:"no you don't"
+},
+{
+p:"Ms. Van / a good teacher (yes)",
+q:"is ms van a good teacher",
+a:"yes she is"
+}
+];
+
+let current = 0;
+let score = 0;
+
+function normalize(text){
+    return text.toLowerCase()
+    .replace(/[.,?]/g,"")
+    .replace(/\s+/g," ")
+    .trim();
+}
+
+function load(){
+    if(current >= data.length){
+        document.querySelector(".card").innerHTML =
+        "<h2>🎉 Finished!</h2><p>Score: "+score+"/"+data.length+"</p>";
+        return;
+    }
+
+    document.getElementById("prompt").innerText = data[current].p;
+    document.getElementById("qInput").value = "";
+    document.getElementById("aInput").value = "";
+}
+
+function check(){
+    let userQ = normalize(document.getElementById("qInput").value);
+    let userA = normalize(document.getElementById("aInput").value);
+
+    let correctQ = normalize(data[current].q);
+    let correctA = normalize(data[current].a);
+
+    if(userQ === correctQ && userA === correctA){
+        document.getElementById("result").innerText = "✅ Correct!";
+        score++;
+    } else {
+        document.getElementById("result").innerText =
+        "❌ Wrong!\nQ: "+data[current].q+"\nA: "+data[current].a;
+    }
+
+    document.getElementById("score").innerText = "Score: " + score;
+
+    current++;
+    setTimeout(load, 1500);
+}
+
+load();
+</script>
+
+</body>
+</html>
