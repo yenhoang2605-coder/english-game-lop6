@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>English Games Hub</title>
+<style>
+body {
+    font-family: Arial;
+    margin: 0;
+    background: linear-gradient(120deg,#89f7fe,#66a6ff);
+    text-align: center;
+}
+
+h1 {
+    color: white;
+    padding: 15px;
+}
+
+.menu {
+    background: white;
+    padding: 15px;
+}
+
+button {
+    margin: 5px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    background: #42a5f5;
+    color: white;
+}
+
+iframe {
+    width: 100%;
+    height: 80vh;
+    border: none;
+    background: white;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🎮 ENGLISH GAME HUB</h1>
+
+<div class="menu">
+<button onclick="loadGame('drag')">Sound Game</button>
+<button onclick="loadGame('present')">Present Simple</button>
+<button onclick="loadGame('wordbox')">Word Box</button>
+<button onclick="loadGame('negative')">Negative Sentences</button>
+<button onclick="loadGame('question')">Make Questions</button>
+<button onclick="loadGame('continuous')">Present Continuous</button>
+<button onclick="loadGame('negcont')">Neg Continuous</button>
+<button onclick="loadGame('tense')">Tense Mix</button>
+<button onclick="loadGame('wh')">WH Questions</button>
+</div>
+
+<iframe id="gameFrame"></iframe>
+
+<script>
+
+function loadGame(type){
+
+let content = "";
+
+// ===== SOUND GAME =====
+if(type==="drag"){
+content = `
+<h2>Drag words into correct sound</h2>
+<p>/ʌ/ vs /əʊ/</p>
+<p>(Dùng bản drag bạn đã tạo trước đó)</p>
+`;
+}
+
+// ===== PRESENT SIMPLE =====
+if(type==="present"){
+content = `
+<h2>Fill the verb</h2>
+<p>They ___ (play)</p>
+<input id='a'><button onclick='check("play")'>Check</button>
+<p id='r'></p>
+<script>
+function check(ans){
+let v=document.getElementById('a').value;
+document.getElementById('r').innerHTML=
+(v===ans)?"✅":"❌ "+ans;
+}
+<\/script>
+`;
+}
+
+// ===== WORD BOX =====
+if(type==="wordbox"){
+content = `
+<h2>Word Box</h2>
+<p>Vy and Phong are ___</p>
+<select id='a'>
+<option>excited</option>
+<option>uniform</option>
+</select>
+<button onclick='check()'>Check</button>
+<p id='r'></p>
+<script>
+function check(){
+let v=document.getElementById('a').value;
+document.getElementById('r').innerHTML=
+(v==="excited")?"✅":"❌ excited";
+}
+<\/script>
+`;
+}
+
+// ===== NEGATIVE =====
+if(type==="negative"){
+content = `
+<h2>Negative sentence</h2>
+<p>I am the best →</p>
+<input id='a'>
+<button onclick='check()'>Check</button>
+<p id='r'></p>
+<script>
+function check(){
+let v=document.getElementById('a').value.toLowerCase();
+document.getElementById('r').innerHTML=
+(v.includes("not"))?"✅":"❌ I'm not...";
+}
+<\/script>
+`;
+}
+
+// ===== QUESTION =====
+if(type==="question"){
+content = `
+<h2>Make question</h2>
+<p>you / play football?</p>
+<input id='a'>
+<button onclick='check()'>Check</button>
+<p id='r'></p>
+<script>
+function check(){
+let v=document.getElementById('a').value.toLowerCase();
+document.getElementById('r').innerHTML=
+(v.startsWith("do you"))?"✅":"❌ Do you...";
+}
+<\/script>
+`;
+}
+
+// ===== CONTINUOUS =====
+if(type==="continuous"){
+content = `
+<h2>Present Continuous</h2>
+<p>I / do homework</p>
+<input id='a'>
+<button onclick='check()'>Check</button>
+<p id='r'></p>
+<script>
+function check(){
+let v=document.getElementById('a').value.toLowerCase();
+document.getElementById('r').innerHTML=
+(v.includes("am doing"))?"✅":"❌ am doing";
+}
+<\/script>
+`;
+}
+
+// ===== NEG CONT =====
+if(type==="negcont"){
+content = `
+<h2>Negative Continuous</h2>
+<p>She ___ (stay)</p>
+<input id='a'>
+<button onclick='check()'>Check</button>
+<p id='r'></p>
+<script>
+function check(){
+let v=document.getElementById('a').value;
+document.getElementById('r').innerHTML=
+(v==="isn't staying")?"✅":"❌ isn't staying";
+}
+<\/script>
+`;
+}
+
+// ===== TENSE =====
+if(type==="tense"){
+content = `
+<h2>Tense</h2>
+<p>I ___ (look) now</p>
+<input id='a'>
+<button onclick='check()'>Check</button>
+<p id='r'></p>
+<script>
+function check(){
+let v=document.getElementById('a').value;
+document.getElementById('r').innerHTML=
+(v==="am looking")?"✅":"❌ am looking";
+}
+<\/script>
+`;
+}
+
+// ===== WH =====
+if(type==="wh"){
+content = `
+<h2>WH Question</h2>
+<p>___ do you go?</p>
+<select id='a'>
+<option>What</option>
+<option>Where</option>
+</select>
+<button onclick='check()'>Check</button>
+<p id='r'></p>
+<script>
+function check(){
+let v=document.getElementById('a').value;
+document.getElementById('r').innerHTML=
+(v==="Where")?"✅":"❌ Where";
+}
+<\/script>
+`;
+}
+
+document.getElementById("gameFrame").srcdoc = content;
+}
+
+</script>
+
+</body>
+</html>
